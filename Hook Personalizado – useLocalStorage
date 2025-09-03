@@ -1,0 +1,32 @@
+import { useState } from "react";
+
+// Hook personalizado
+function useLocalStorage(key, initialValue) {
+  const [value, setValue] = useState(() => {
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) : initialValue;
+  });
+
+  const setAndStore = (newValue) => {
+    setValue(newValue);
+    localStorage.setItem(key, JSON.stringify(newValue));
+  };
+
+  return [value, setAndStore];
+}
+
+export default function NomeSalvo() {
+  const [nome, setNome] = useLocalStorage("nome", "");
+
+  return (
+    <div className="p-4">
+      <input
+        value={nome}
+        onChange={(e) => setNome(e.target.value)}
+        placeholder="Digite seu nome"
+        className="border p-2"
+      />
+      <p>Nome salvo: {nome}</p>
+    </div>
+  );
+}
