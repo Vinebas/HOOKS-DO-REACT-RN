@@ -1,0 +1,16 @@
+import { useRef } from "react";
+
+export default function FocoInput() {
+  const inputRef = useRef();
+
+  const focar = () => {
+    inputRef.current.focus();
+  };
+
+  return (
+    <div className="p-4">
+      <input ref={inputRef} placeholder="Digite algo..." className="border p-2" />
+      <button onClick={focar}>Focar no input</button>
+    </div>
+  );
+}
