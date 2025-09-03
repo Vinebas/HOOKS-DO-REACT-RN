@@ -1,0 +1,26 @@
+import { createContext, useContext, useState } from "react";
+
+const ThemeContext = createContext();
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("light");
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div className={theme === "light" ? "bg-white text-black" : "bg-black text-white"}>
+        {children}
+      </div>
+    </ThemeContext.Provider>
+  );
+}
+
+export function BotaoTema() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  return (
+    <button onClick={toggleTheme}>
+      Mudar para {theme === "light" ? "Dark" : "Light"}
+    </button>
+  );
+}
